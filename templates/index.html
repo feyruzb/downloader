@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Downloader</title>
+    <link rel="stylesheet" href="./static/style.css">
+</head>
+<body>
+    <div class="grid-container">
+    <div class="content">
+       <div class="downloader_write_space">
+            <h1>YouTube Downloader</h1>
+            <form action="/download" method="post">
+                <input type="text" name="url" id="url" placeholder="Enter YouTube video URL" required minlength="10">
+                <select name="format" id="format">
+                    <option value="mp4">MP4</option>
+                    <option value="mp3">MP3</option>
+                </select> 
+                <div id="resolution-options" style="display: none;">
+                    <select name="resolution">
+                        <option value="360p">360p</option>
+                        <option value="480p">480p</option>
+                        <option value="720p">720p</option>
+                        <option value="1080p">1080p</option>
+                    </select>
+                </div>
+                <input type="submit" value="Download">
+            </form>
+       </div>
+    </div>
+    </div>
+    <script>
+        // Show resolution options only when MP4 is selected
+        var formatSelect = document.getElementById('format');
+        var resolutionOptions = document.getElementById('resolution-options');
+        formatSelect.addEventListener('change', function() {
+            if (formatSelect.value === 'mp4') {
+                resolutionOptions.style.display = 'block';
+            } else {
+                resolutionOptions.style.display = 'none';
+            }
+        });
+        // Auto-resize input field
+        const urlInput = document.getElementById('url');
+    urlInput.addEventListener('input', function() {
+    this.style.width = ((this.value.length + 1) * 8) + 'px';
+  });
+  // Auto-resize input field
+    </script>
+</body>
+<footer>
+    <p>Created by Baghirov Feyruz & Murad Mammadov</p>
+</footer>
+</html>
