@@ -10,12 +10,14 @@ def home():
 
 @app.route('/download', methods=['POST'])
 def download():
+    yt = YouTube(video_url)
     url = request.form['url']
     format = request.form['format']
     resolution = request.form['resolution']
 
+
     video = YouTube(url)
-    if format == 'mp3':
+    if format == 'MP3':
         audio = video.streams.get_audio_only()
         audio.download('downloads/')
         filename = audio.default_filename
@@ -32,4 +34,4 @@ def download():
         return send_file(file_path, as_attachment=True)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=4444, debug=True)
