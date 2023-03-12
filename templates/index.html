@@ -7,22 +7,40 @@
     
 </head>
 <body>
-    
-    <div class="content">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">FM</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active" aria-current="page" href="#">Youtube downloader</a>
+              <a class="nav-link" href="link">Link Shortener</a>
+              <a class="nav-link" href="#">Pricing</a>
+              <a class="nav-link disabled">Disabled</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+
+
+    <div class="content align-middle">
         <div class="downloader_write_space">
             <h1>YouTube Downloader</h1>
             <div class="input_bar">
 
-                <form action="/download" method="post">
-                    <div class="input-group mb-3 w-50 m-auto">
+                <form id="form" action="/download" method="post" class="w-50 m-auto" >
+                    <div class="input-group mb-3 m-auto">
                         <span class="input-group-text" id="inputGroup-sizing-default">URL</span>
-                        <input type="text" name="url" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <input id="url" type="text" name="url" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                       </div>
                     
                       
-                      <div class="input-group mb-3 dropdownbar w-50">
+                      <div class="input-group mb-3 dropdownbar">
                           <label class="input-group-text" for="inputGroupSelect02">Options</label>
-                          <select id="format" name="format" class="form-select" id="inputGroupSelect02">
+                          <select id="format" name="format" class="form-select rounded-end" id="inputGroupSelect02">
                               <option selected disabled>Format</option>
                               <option value="MP3">MP3</option>
                               <option value="MP4">MP4</option>
@@ -32,35 +50,70 @@
                                 <option value="360p">360p</option>
                                 <option value="480p">480p</option>
                                 <option value="720p">720p</option>
-                                <option value="1080p">1080p</option>
                               </select>
                         </div>
-                        <input class="btn btn-success" type="submit" value="Download">
+                        <button id="download" class="btn btn-success" onclick="btn(event)">Download</button> 
+                        <div id="alert" class="alert alert-danger" style="display: none;" role="alert">
+                            A simple danger alert—check it out!
+                          </div>
                     </form>
                 </div>
             </div>
         </div>
-
+        
+        <!-- <footer class="fixed-bottom"> -->
+            <footer>
+            <p class="m-0">Created by
+                <a target="_blank" href="https://github.com/feyruzb" data-bs-toggle="tooltip" data-bs-title="Hello">Baghirov Feyruz</a>
+                &
+                <a target="_blank" href="https://github.com/mamedov6119" data-bs-toggle="tooltip" data-bs-title="Hello">Mammadov Murad(GONDON)</a>
+            </p>
+        </footer>
     <script>
         
         // Show resolution options only when MP4 is selected
+        var url = document.getElementById('url')
         var formatSelect = document.getElementById('format');
         var resolutionOptions = document.getElementById('resolution-options');
+        var dlButton = document.getElementById('download')
+        var alert = document.getElementById('alert')
+        var form = document.getElementById('form')
+
+        function btn(event){
+            event.preventDefault();
+            alert.style.display = (validator() ? 'none' : 'block')
+
+            if (validator()) form.submit();
+        }
+
         formatSelect.addEventListener('change', function() {
             if (formatSelect.value === 'MP4') {
                 resolutionOptions.style.display = 'block';
-                console.log(1)
-            } else {
+                formatSelect.classList.remove('rounded-end')
+            } else if (formatSelect.value === 'MP3') {
                 resolutionOptions.style.display = 'none';
-                console.log(0)
-
+                formatSelect.classList.add('rounded-end')
             }
+            // dlButton.disabled = !validator();
         });
+
+        // resolutionOptions.addEventListener('change', () => {
+        //     dlButton.disabled = !validator();
+        // })
+
+        // url.addEventListener('change', () => {
+        //     dlButton.disabled = !validator();
+        // })
+
+
+        function validator () {
+            let status = url.value.includes('http') && ['MP3','MP4'].includes(formatSelect.value);
+            if (formatSelect.value == 'MP4') status = status && resolutionOptions.value.includes('p');
+            return status
+        }
+        
      
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
-<footer>
-    <p>Created by Baghirov Feyruz & Murad Mammadov</p>
-</footer>
 </html>

@@ -8,15 +8,21 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
+@app.route('/link')
+def link():
+    return render_template('link-shortener.html')
+
 @app.route('/download', methods=['POST'])
 def download():
-    yt = YouTube(video_url)
     url = request.form['url']
     format = request.form['format']
     resolution = request.form['resolution']
+    print(url, format, resolution)
+    # yt = YouTube(url)
 
 
     video = YouTube(url)
+
     if format == 'MP3':
         audio = video.streams.get_audio_only()
         audio.download('downloads/')
@@ -24,10 +30,8 @@ def download():
         file_path = os.path.join('downloads', filename)
         return send_file(file_path, as_attachment=True)
     else:
-        if resolution == '720p':
-            stream = video.streams.get_by_resolution('720p')
-        else:
-            stream = video.streams.get_highest_resolution()
+        stream = video.streams.get_by_resolution(resolution)
+        print(video.streams)
         stream.download('downloads/')
         filename = stream.default_filename
         file_path = os.path.join('downloads', filename)

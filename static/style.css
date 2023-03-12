@@ -3,11 +3,14 @@ h1 {
 }
 
 footer {
-    height: 60px; /* adjust to fit your footer height */
-    background-color: #333;
-    color: #fff;
+    height:100px;
+    position:relative;
+    bottom:0;
+    width:100%;
+    background-color: rgb(26, 26, 26);
+    color:white;
     text-align: center;
-    line-height: 60px; /* same as height */
+    line-height: 100px;
   }
   
 .content {
@@ -20,11 +23,21 @@ footer {
 }
   
 .downloader_write_space{
-    display: inline;
+    /* margin-top: 30%; */
+    width: 100%;
+    position: absolute;
+    top: calc(50% - 100px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+   
 }
 .dropdownbar {
-    width: 30% !important;
+    width: 3    0% !important;
     margin:auto;
     display: inline ;
 }
   
+/* html {
+    height: 100%;
+    padding: 0;
+} */
